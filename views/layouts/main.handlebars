@@ -26,5 +26,12 @@
 
   {{{body}}}
 
+  {{!-- Initiate the Yoti integration --}}
+  <script src="https://sdk.yoti.com/clients/browser.2.1.0.js"></script>
+  <script>_ybg.init()</script>
+
+  {{!-- Clear the query string and path from the url, keeping the loginToken might be more useful but clearing it makes the app easier to evaluate --}}
+  <script>window.history.pushState({ path: 'https://localhost:7362' }, '', 'https://localhost:7362')</script>
+
 </body>
 </html>

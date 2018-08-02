@@ -4,18 +4,21 @@
 
   {{!-- Flexbox to hold the controls of the page --}}
   <div class="d-flex justify-content-around mt-5 mb-5">
-    {{!-- Either show a login button the login details with a change button --}}
-    {{#if user}}
-      {{!-- Use form actions to allow a button to behave like a link --}}
-      <form action="https://google.com">
-        Logged in as <span class="font-weight-bold">{{user.email}}</span>
-        <button type="submit">Change</button>
-      </form>
-    {{else}}
-      <form action="https://google.com">
-        <button type="submit">Log in with Yoti</button>
-      </form>
-    {{/if}}
+    <span>
+      {{!-- Either show a login button the login details with a change button --}}
+      {{#if user}}
+        Logged in as <span class="font-weight-bold">{{user.email}}:</span>
+        {{!-- This span will create the Yoti button --}}
+        <span data-yoti-application-id="{{yotiApplicationId}}">
+          Change
+        </span>
+      {{else}}
+        {{!-- This span will create the Yoti button --}}
+        <span data-yoti-application-id="{{yotiApplicationId}}">
+          Log in with Yoti
+        </span>
+      {{/if}}
+    </span>
 
     <form>
       {{!--
@@ -33,15 +36,11 @@
     </form>
   </div>
 
-  {{!-- Flexbox to hold the posts --}}
+  {{!-- Flexbox to hold the posts and wrap them to the next line --}}
   <div class="d-flex flex-wrap">
     {{#each posts as |post|}}
       <div class="post d-flex">
-        {{#if post.anonymous}}
-          <img src="/anon.png" alt="Anon" class="selfie"></img>
-        {{else}}
-          <img src="data:image/png;base64,{{post.imageSrc}}" alt="Selfie" class="selfie"></img>
-        {{/if}}
+        <img src="{{post.imageSrc}}" alt="Selfie" class="selfie"></img>
 
         <div>
           <div class="font-weight-bold">

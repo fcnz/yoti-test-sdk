@@ -32,4 +32,18 @@ const users = {}
 module.exports = {
   posts,
   users,
+
+  // Export a reset method for testing purposes
+  __reset() {
+    posts = [
+      fakePost(),
+      fakePost(),
+      fakePost(),
+      fakePost(),
+      fakePost(),
+      fakePost(),
+      fakePost(),
+    ]
+    users = {}
+  },
 }
