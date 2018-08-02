@@ -1,0 +1,62 @@
+
+{{!-- Whole page should take up the whole view width --}}
+<div class="d-flex-column col-12">
+
+  {{!-- Flexbox to hold the controls of the page --}}
+  <div class="d-flex justify-content-around mt-5 mb-5">
+    {{!-- Either show a login button the login details with a change button --}}
+    {{#if user}}
+      {{!-- Use form actions to allow a button to behave like a link --}}
+      <form action="https://google.com">
+        Logged in as <span class="font-weight-bold">{{user.email}}</span>
+        <button type="submit">Change</button>
+      </form>
+    {{else}}
+      <form action="https://google.com">
+        <button type="submit">Log in with Yoti</button>
+      </form>
+    {{/if}}
+
+    <form>
+      {{!--
+      Always submit the loginToken if present so the server knows who you are.
+      This could also be acomplished with cookies or local storage.
+      --}}
+      {{#if loginToken}}
+        <input type="hidden" name="loginToken" value="{{loginToken}}">
+      {{/if}}
+
+      <input type="text" name="newPost">
+      <button>Submit</button>
+      <br>
+      <label><input name="anonymous" type="checkbox">Don't post personal details</label>
+    </form>
+  </div>
+
+  {{!-- Flexbox to hold the posts --}}
+  <div class="d-flex flex-wrap">
+    {{#each posts as |post|}}
+      <div class="post d-flex">
+        {{#if post.anonymous}}
+          <img src="/anon.png" alt="Anon" class="selfie"></img>
+        {{else}}
+          <img src="data:image/png;base64,{{post.imageSrc}}" alt="Selfie" class="selfie"></img>
+        {{/if}}
+
+        <div>
+          <div class="font-weight-bold">
+            {{#if post.anonymous}}
+              Anonymous
+            {{else}}
+              {{post.email}}
+              <br>
+              {{post.phone}}
+            {{/if}}
+          </div>
+          {{post.comment}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+</div>
